@@ -8,17 +8,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
         <result property="type"    column="type"    />
+        <result property="version"    column="version"    />
         <result property="driver"    column="driver"    />
+        <result property="mode"    column="mode"    />
+        <result property="address"    column="address"    />
+        <result property="port"    column="port"    />
+        <result property="databaseName"    column="database_name"    />
+        <result property="characterEncoding"    column="character_encoding"    />
         <result property="url"    column="url"    />
         <result property="username"    column="username"    />
         <result property="password"    column="password"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
-        <result property="status"    column="status"    />
     </resultMap>
 
     <sql id="selectDatabaseConnectionVo">
-        select id, name, type, driver, url, username, password, create_time, update_time, status from dbmigrate_database_connection
+        select id, name, type, version, driver, mode, address, port, database_name, character_encoding, url, username, password, create_time, update_time from DBMIGRATE_DATABASE_CONNECTION
     </sql>
 
     <select id="selectDatabaseConnectionList" parameterType="DatabaseConnection" resultMap="DatabaseConnectionResult">
@@ -26,11 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="type != null  and type != ''"> and type = #{type}</if>
-            <if test="driver != null  and driver != ''"> and driver = #{driver}</if>
-            <if test="url != null  and url != ''"> and url = #{url}</if>
-            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
-            <if test="password != null  and password != ''"> and password = #{password}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
         </where>
     </select>
     
@@ -40,53 +41,68 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <insert id="insertDatabaseConnection" parameterType="DatabaseConnection" useGeneratedKeys="true" keyProperty="id">
-        insert into dbmigrate_database_connection
+        insert into DBMIGRATE_DATABASE_CONNECTION
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">name,</if>
             <if test="type != null and type != ''">type,</if>
+            <if test="version != null and version != ''">version,</if>
             <if test="driver != null and driver != ''">driver,</if>
+            <if test="mode != null and mode != ''">mode,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="port != null and port != ''">port,</if>
+            <if test="databaseName != null and databaseName != ''">database_name,</if>
+            <if test="characterEncoding != null and characterEncoding != ''">character_encoding,</if>
             <if test="url != null">url,</if>
             <if test="username != null and username != ''">username,</if>
             <if test="password != null and password != ''">password,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
-            <if test="status != null">status,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">#{name},</if>
             <if test="type != null and type != ''">#{type},</if>
+            <if test="version != null and version != ''">#{version},</if>
             <if test="driver != null and driver != ''">#{driver},</if>
+            <if test="mode != null and mode != ''">#{mode},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="port != null and port != ''">#{port},</if>
+            <if test="databaseName != null and databaseName != ''">#{databaseName},</if>
+            <if test="characterEncoding != null and characterEncoding != ''">#{characterEncoding},</if>
             <if test="url != null">#{url},</if>
             <if test="username != null and username != ''">#{username},</if>
             <if test="password != null and password != ''">#{password},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
-            <if test="status != null">#{status},</if>
          </trim>
     </insert>
 
     <update id="updateDatabaseConnection" parameterType="DatabaseConnection">
-        update dbmigrate_database_connection
+        update DBMIGRATE_DATABASE_CONNECTION
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="type != null and type != ''">type = #{type},</if>
+            <if test="version != null and version != ''">version = #{version},</if>
             <if test="driver != null and driver != ''">driver = #{driver},</if>
+            <if test="mode != null and mode != ''">mode = #{mode},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="port != null and port != ''">port = #{port},</if>
+            <if test="databaseName != null and databaseName != ''">database_name = #{databaseName},</if>
+            <if test="characterEncoding != null and characterEncoding != ''">character_encoding = #{characterEncoding},</if>
             <if test="url != null">url = #{url},</if>
             <if test="username != null and username != ''">username = #{username},</if>
             <if test="password != null and password != ''">password = #{password},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
-            <if test="status != null">status = #{status},</if>
         </trim>
         where id = #{id}
     </update>
 
     <delete id="deleteDatabaseConnectionById" parameterType="Long">
-        delete from dbmigrate_database_connection where id = #{id}
+        delete from DBMIGRATE_DATABASE_CONNECTION where id = #{id}
     </delete>
 
     <delete id="deleteDatabaseConnectionByIds" parameterType="String">
-        delete from dbmigrate_database_connection where id in 
+        delete from DBMIGRATE_DATABASE_CONNECTION where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

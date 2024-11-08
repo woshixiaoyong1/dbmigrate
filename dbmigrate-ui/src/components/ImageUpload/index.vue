@@ -47,7 +47,6 @@
 
 <script setup>
 import { getToken } from "@/utils/auth";
-import { isExternal } from "@/utils/validate";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -94,7 +93,7 @@ watch(() => props.modelValue, val => {
     // 然后将数组转为对象数组
     fileList.value = list.map(item => {
       if (typeof item === "string") {
-        if (item.indexOf(baseUrl) === -1 && !isExternal(item)) {
+        if (item.indexOf(baseUrl) === -1) {
           item = { name: baseUrl + item, url: baseUrl + item };
         } else {
           item = { name: item, url: item };
@@ -125,11 +124,9 @@ function handleBeforeUpload(file) {
     isImg = file.type.indexOf("image") > -1;
   }
   if (!isImg) {
-    proxy.$modal.msgError(`文件格式不正确，请上传${props.fileType.join("/")}图片格式文件!`);
-    return false;
-  }
-  if (file.name.includes(',')) {
-    proxy.$modal.msgError('文件名不正确，不能包含英文逗号!');
+    proxy.$modal.msgError(
+      `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
+    );
     return false;
   }
   if (props.fileSize) {

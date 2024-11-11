@@ -188,13 +188,15 @@
 </template>
 
 <script setup name="Connection">
+const route = useRoute();
+const router = useRouter();
 import {
   listConnection,
   getConnection,
   delConnection,
   addConnection,
   updateConnection,
-} from "@/api/connection/connection";
+} from "@/api/connection/connection/connection.js";
 
 const { proxy } = getCurrentInstance();
 
@@ -317,9 +319,10 @@ function handleSelectionChange(selection) {
 
 /** 新增按钮操作 */
 function handleAdd() {
-  reset();
+  router.push("/connection/connection/add");
+  /*  reset();
   open.value = true;
-  title.value = "添加数据源";
+  title.value = "添加数据源";*/
 }
 
 /** 修改按钮操作 */

@@ -28,7 +28,7 @@ import com.dbmigrate.common.core.page.TableDataInfo;
  * @date 2024-11-07
  */
 @RestController
-@RequestMapping("/connection")
+@RequestMapping("/connection/connection")
 public class DatabaseConnectionController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 查询数据源列表
      */
-    @PreAuthorize("@ss.hasPermi('connection:list')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:list')")
     @GetMapping("/list")
     public TableDataInfo list(DatabaseConnection databaseConnection)
     {
@@ -49,7 +49,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 导出数据源列表
      */
-    @PreAuthorize("@ss.hasPermi('connection:export')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:export')")
     @Log(title = "数据源", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, DatabaseConnection databaseConnection)
@@ -62,7 +62,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 获取数据源详细信息
      */
-    @PreAuthorize("@ss.hasPermi('connection:query')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -72,7 +72,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 新增数据源
      */
-    @PreAuthorize("@ss.hasPermi('connection:add')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:add')")
     @Log(title = "数据源", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody DatabaseConnection databaseConnection)
@@ -83,7 +83,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 修改数据源
      */
-    @PreAuthorize("@ss.hasPermi('connection:edit')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:edit')")
     @Log(title = "数据源", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody DatabaseConnection databaseConnection)
@@ -94,7 +94,7 @@ public class DatabaseConnectionController extends BaseController
     /**
      * 删除数据源
      */
-    @PreAuthorize("@ss.hasPermi('connection:remove')")
+    @PreAuthorize("@ss.hasPermi('connection:connection:remove')")
     @Log(title = "数据源", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
